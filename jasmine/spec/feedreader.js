@@ -31,7 +31,7 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-        it('have defined URLs', function() {
+        it('have defined, non-empty URLs', function() {
             for (var i=0; i<allFeeds.length; i++) {
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
@@ -42,7 +42,7 @@ $(function() {
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-        it('have defined names', function() {
+        it('have defined, non-empty names', function() {
             for (var i=0; i<allFeeds.length; i++) {
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
@@ -85,15 +85,18 @@ $(function() {
         /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test wil require
+         * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
+         *
+         * First, run the function on the first feed (index 0).
          */
         beforeEach(function(done) {
             window.loadFeed(0);
             done();
         });
 
-        it('display at least one entry after load', function(done) {
+        /* After the feed loads, test that the number of entries is greater than 0 */
+        it('display at least one valid entry after loadFeed() is called', function(done) {
             setTimeout(function() {
                 var countEntries = $('.entry').length;
                 expect(countEntries).toBeGreaterThan(0);
@@ -110,22 +113,33 @@ $(function() {
         /* Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
+         *
+         * Pull the second feed (index 1), and save its first text entry.
          */
         beforeEach(function(done) {
             window.loadFeed(1);
             entryTextBefore = $('.entry').find('h2')[0].innerText;
-            window.loadFeed(2);
             done();
         });
 
+        /* Pull the third feed (index 2), and save its first text entry.
+         * Then, compare that entry to the one pulled from the second feed.
+         */
         it('displays changed content',function(done) {
             expect(entryTextBefore).not.toBeNull();
             setTimeout(function() {
+                window.loadFeed(2);
                 entryTextAfter = $('.entry').find('h2')[0].innerText;
                 expect(entryTextAfter).not.toBeNull();
                 expect(entryTextAfter).not.toEqual(entryTextBefore);
                 done();
             },250);
+        });
+
+        /* After the test completes, return the display to the first feed. */
+        afterEach(function(done) {
+            window.loadFeed(0);
+            done();
         });
     });
 }());
