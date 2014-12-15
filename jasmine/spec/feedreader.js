@@ -107,7 +107,7 @@ $(function() {
 
 
     /* Write a new test suite named "New Feed Selection" */
-    describe('New feed selection',function() {
+    describe('New feed selection', function() {
         var entryTextBefore, entryTextAfter;
 
         /* Write a test that ensures when a new feed is loaded
@@ -119,18 +119,18 @@ $(function() {
         beforeEach(function(done) {
             window.loadFeed(1);
             entryTextBefore = $('.entry').find('h2')[0].innerText;
+            window.loadFeed(2);
             done();
         });
 
         /* Pull the third feed (index 2), and save its first text entry.
          * Then, compare that entry to the one pulled from the second feed.
          */
-        it('displays changed content',function(done) {
-            expect(entryTextBefore).not.toBeNull();
+        it('displays changed content', function(done) {
+            expect(entryTextBefore).toBeDefined();
             setTimeout(function() {
-                window.loadFeed(2);
                 entryTextAfter = $('.entry').find('h2')[0].innerText;
-                expect(entryTextAfter).not.toBeNull();
+                expect(entryTextAfter).toBeDefined();
                 expect(entryTextAfter).not.toEqual(entryTextBefore);
                 done();
             },250);
