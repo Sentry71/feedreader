@@ -89,16 +89,13 @@ $(function() {
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
         beforeEach(function(done) {
-            //spyOn(window, 'loadFeed').and.callThrough();
             window.loadFeed(0);
             done();
         });
 
         it('display at least one entry after load', function(done) {
-            //expect(window.loadFeed).toHaveBeenCalledWith(0);
             setTimeout(function() {
                 var countEntries = $('.entry').length;
-                //console.log(countEntries);  // 4
                 expect(countEntries).toBeGreaterThan(0);
                 done();
             },250);
@@ -106,15 +103,29 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "New Feed Selection"*/
+    /* Write a new test suite named "New Feed Selection" */
     describe('New feed selection',function() {
+        var entryTextBefore, entryTextAfter;
 
-        /* TODO: Write a test that ensures when a new feed is loaded
+        /* Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        it('displays changed content',function() {
-            pending();
+        beforeEach(function(done) {
+            window.loadFeed(1);
+            entryTextBefore = $('.entry').find('h2')[0].innerText;
+            window.loadFeed(2);
+            done();
+        });
+
+        it('displays changed content',function(done) {
+            expect(entryTextBefore).not.toBeNull();
+            setTimeout(function() {
+                entryTextAfter = $('.entry').find('h2')[0].innerText;
+                expect(entryTextAfter).not.toBeNull();
+                expect(entryTextAfter).not.toEqual(entryTextBefore);
+                done();
+            },250);
         });
     });
 }());
