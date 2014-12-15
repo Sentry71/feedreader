@@ -51,7 +51,7 @@ $(function() {
     });
 
 
-    /* TODO: Write a new test suite named "The menu" */
+    /* Write a new test suite named "The menu" */
     describe('The menu', function() {
         var menuClass = document.body.className;
 
@@ -75,24 +75,46 @@ $(function() {
             expect(menuClass).toBeNull;
             menuIcon.click();
             expect(menuClass).toEqual("menu-hidden");
-            //pending();
         });
     });
 
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* Write a new test suite named "Initial Entries" */
+    describe('Initial entries', function() {
 
-        /* TODO: Write a test that ensures when the loadFeed
+        /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          * Remember, loadFeed() is asynchronous so this test wil require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        beforeEach(function(done) {
+            //spyOn(window, 'loadFeed').and.callThrough();
+            window.loadFeed(0);
+            done();
+        });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+        it('display at least one entry after load', function(done) {
+            //expect(window.loadFeed).toHaveBeenCalledWith(0);
+            setTimeout(function() {
+                var countEntries = $('.entry').length;
+                //console.log(countEntries);  // 4
+                expect(countEntries).toBeGreaterThan(0);
+                done();
+            },250);
+        });
+    });
+
+
+    /* TODO: Write a new test suite named "New Feed Selection"*/
+    describe('New feed selection',function() {
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        it('displays changed content',function() {
+            pending();
+        });
+    });
 }());
