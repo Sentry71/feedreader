@@ -91,17 +91,14 @@ $(function() {
          * First, run the function on the first feed (index 0).
          */
         beforeEach(function(done) {
-            window.loadFeed(0);
-            done();
+            window.loadFeed(0, done);
         });
 
         /* After the feed loads, test that the number of entries is greater than 0 */
-        it('display at least one valid entry after loadFeed() is called', function(done) {
-            setTimeout(function() {
-                var countEntries = $('.entry').length;
-                expect(countEntries).toBeGreaterThan(0);
-                done();
-            },250);
+        it('display at least one valid entry', function(done) {
+            var countEntries = $('.entry').length;
+            expect(countEntries).toBeGreaterThan(0);
+            done();
         });
     });
 
@@ -119,8 +116,7 @@ $(function() {
         beforeEach(function(done) {
             window.loadFeed(1);
             entryTextBefore = $('.entry').find('h2')[0].innerText;
-            window.loadFeed(2);
-            done();
+            window.loadFeed(2, done);
         });
 
         /* Pull the third feed (index 2), and save its first text entry.
@@ -128,12 +124,10 @@ $(function() {
          */
         it('displays changed content', function(done) {
             expect(entryTextBefore).toBeDefined();
-            setTimeout(function() {
-                entryTextAfter = $('.entry').find('h2')[0].innerText;
-                expect(entryTextAfter).toBeDefined();
-                expect(entryTextAfter).not.toEqual(entryTextBefore);
-                done();
-            },250);
+            entryTextAfter = $('.entry').find('h2')[0].innerText;
+            expect(entryTextAfter).toBeDefined();
+            expect(entryTextAfter).not.toEqual(entryTextBefore);
+            done();
         });
 
         /* After the test completes, return the display to the first feed. */
