@@ -95,10 +95,9 @@ $(function() {
         });
 
         /* After the feed loads, test that the number of entries is greater than 0 */
-        it('display at least one valid entry', function(done) {
+        it('display at least one valid entry', function() {
             var countEntries = $('.entry').length;
             expect(countEntries).toBeGreaterThan(0);
-            done();
         });
     });
 
@@ -122,18 +121,16 @@ $(function() {
         /* Pull the third feed (index 2), and save its first text entry.
          * Then, compare that entry to the one pulled from the second feed.
          */
-        it('displays changed content', function(done) {
+        it('displays changed content', function() {
             expect(entryTextBefore).toBeDefined();
             entryTextAfter = $('.entry').find('h2')[0].innerText;
             expect(entryTextAfter).toBeDefined();
             expect(entryTextAfter).not.toEqual(entryTextBefore);
-            done();
         });
 
         /* After the test completes, return the display to the first feed. */
-        afterEach(function(done) {
+        afterEach(function() {
             window.loadFeed(0);
-            done();
         });
     });
 }());
