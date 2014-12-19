@@ -53,7 +53,7 @@ $(function() {
 
     /* Write a new test suite named "The menu" */
     describe('The menu', function() {
-        var menuClass = document.body.className;
+        var menuClass = $('body').attr('class');
 
         /* Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
@@ -69,12 +69,12 @@ $(function() {
          * should have two expectations: does the menu display when
          * clicked and does it hide when clicked again.
          */
-        it('changes visibility when clicked', function() {
+        it('toggles visibility when icon is clicked', function() {
             var menuIcon = $('.menu-icon-link');
             menuIcon.click();
-            expect(menuClass).toBeNull;
+            expect($('body').attr('class')).toEqual("");
             menuIcon.click();
-            expect(menuClass).toEqual("menu-hidden");
+            expect($('body').attr('class')).toEqual("menu-hidden");
         });
     });
 
@@ -132,5 +132,34 @@ $(function() {
         afterEach(function() {
             window.loadFeed(0);
         });
+    });
+
+    /* Extra options test suite for checking number of entries
+     * (can be changed in an option menu, if designed)
+     */
+    describe('The number of feed entries displayed', function() {
+      var countEntries = $('li').length;
+      var optionMenu;
+
+      /* Test default entries equals 4 (Google Feeds API default) */
+      it('defaults to four', function() {
+        expect(optionMenu).toBeUndefined();
+        expect(countEntries).toEqual(4);
+      });
+
+      /* Test that number of entries changes if options are changed
+       * This test will fail until option menu is created. Therefore,
+       * the test is marked as pending.
+       */
+      it('changes to match new value in options menu', function() {
+        optionMenu = {
+          'numEntries' : '5'
+        };
+
+        expect(optionMenu).toBeDefined();
+        expect(optionMenu.numEntries).toBeDefined();
+        expect(countEntries).toEqual(optionMenu.numEntries);
+        pending();
+      });
     });
 }());
