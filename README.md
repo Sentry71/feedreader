@@ -30,5 +30,4 @@ New Feed Selection:
 Feed Entries Displayed
 * Verify default number of entries are displayed for the feed selected.
 * Verify option menu can be modified to a different number of feed items to be displayed.
-  * Since this test requires the Options menu that hav not been designed yet, the test is marked as pending in Jasmine.
-  
+  * Since this test requires an Options menu that has not been designed yet, the test is marked as pending in Jasmine. Otherwise, it will be marked as failed.
