@@ -6,7 +6,7 @@ This project is a web-based application that reads RSS feeds. The objective of t
 
 Browse to [this link](http://sentry71.github.io/feedreader) using the Chrome web browser.
 
-(Note: Testing will successfully complete with Chrome and Safari. Firefox has issues with test timing. I am unable to test with IE currently.)
+(Note: Testing will successfully complete with Chrome, IE 11 and Safari. Firefox has issues with test timing.)
 
 ## What tests are demonstrated?
 
@@ -30,4 +30,4 @@ New Feed Selection:
 Feed Entries Displayed
 * Verify default number of entries are displayed for the feed selected.
 * Verify option menu can be modified to a different number of feed items to be displayed.
-  * Since this test requires an Options menu that has not been designed yet, the test is marked as pending in Jasmine. Otherwise, it will be marked as failed.
+  * Since this test requires an Options menu that has not been designed yet, the test is marked as pending in Jasmine. Otherwise, it will fail the test.
